@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'passport' => [
+        'token_endpoint' => env('PASSPORT_TOKEN_ENDPOINT'),
+    ],
+
 ];
