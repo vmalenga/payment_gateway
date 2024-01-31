@@ -2,13 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Http\Resources\Country\CountryCollection;
-use App\Http\Resources\Country\CountryResource;
 use App\Http\Resources\Partner\PartnerCollection;
 use App\Http\Resources\Partner\PartnerResource;
 use App\Models\Auth\Partner;
-use App\Models\System\Country;
-use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\PartnerRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +37,10 @@ class PartnerRepository implements PartnerRepositoryInterface
             else{
                 $data['created_by'] = Auth::id();
 
-                $partner = Partner::withTrashed()->where(['name' => $data['name']])->first();
+                $partner = Partner::withTrashed()->where([
+                    'name' => $data['name'],
+                    'country_id' => $data['country_id']
+                ])->first();
 
                 if($partner){
                     $partner->restore();
