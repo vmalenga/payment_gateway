@@ -23,7 +23,7 @@ class Partner extends Model
         'token',
         'expires_in',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
 
     public function country(): BelongsTo

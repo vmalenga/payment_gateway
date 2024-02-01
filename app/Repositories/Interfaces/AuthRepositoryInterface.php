@@ -9,4 +9,6 @@ interface AuthRepositoryInterface
     public function login(array $data): array;
 
     public function verify(array $data): array;
+
+    public function verifyToken(array $data): array;
 }

@@ -87,4 +87,31 @@ class AuthRepository implements AuthRepositoryInterface
             ];
         }
     }
+
+    public function verifyToken(array $data): array
+    {
+        $partner = Partner::find((int)$data['id']);
+
+        $data = [
+            'grant_type' => 'client_credentials',
+            'client_id' => $partner->client_id,
+            'client_secret' => $partner->client_token,
+            'scope' => '',
+        ];
+
+        $response = Http::asForm()->post(config('services.passport.token_endpoint'), $data);
+
+        return [
+            'accessToken' => $response->json()['access_token'],
+            'refreshToken' => '',
+            'tokenType' => $response->json()['token_type'],
+            'expiresIn' => $response->json()['expires_in'],
+            'user' => [
+                'id' => $partner->id,
+                'name' => $partner->name,
+                'email' => '',
+                'token' => '',
+            ],
+        ];
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Partner\PartnerCreateRequest;
 use App\Models\Auth\Partner;
 use App\Repositories\Interfaces\PartnerRepositoryInterface;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class PartnerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PartnerCreateRequest $request)
     {
         return response()->json($this->partner->save($request->all(), null), Response::HTTP_CREATED);
     }
